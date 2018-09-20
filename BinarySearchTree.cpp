@@ -20,7 +20,7 @@ BstNode *getNewNode(int data)
     return newNode;
 }
 
-/*function to insert node in balanced binary search tree with O(logn) complexity  */
+/*function to insert node in balanced binary search tree  */
 BstNode* Insert(BstNode *root, int data)
 {
     if(root == NULL)
