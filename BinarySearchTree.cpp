@@ -1,3 +1,11 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 /*This program is designed and developed by rakesh sharma(rockey36@gmail.com)*/
 
 #include <iostream>
@@ -37,6 +45,51 @@ BstNode* Insert(BstNode *root, int data)
     }
     
     return root;
+}
+/*function to get the minimum value node from right subtree*/
+BstNode*  minValueNode(BstNode* root)
+{
+    BstNode* current = root;
+    
+    while(current->left != NULL)
+        current = current->left;
+    
+    return current;
+}
+
+/*function to delete a node from the binary search tree*/
+BstNode*  DeleteNode(BstNode* root, int data)
+{
+    if(root  ==  NULL)
+        return root;
+        
+    if(data < root->data )
+        root->left = DeleteNode(root->left,data);
+    else if(data > root->data )
+        root->right = DeleteNode(root->right,data);
+    else
+    {
+        if(root->left == NULL)
+        {
+            BstNode* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if( root->right == NULL)
+        {
+            BstNode* temp = root->left;
+            free(root);
+            return temp;
+        }
+        
+        BstNode* temp = minValueNode(root->right);
+        root->data = temp->data;
+        
+        root->right = DeleteNode(root->right,temp->data);
+    }
+    
+    return root;
+    
 }
 
 /*function to search the element in binary search tree with O(logn) time complexity */
@@ -78,6 +131,9 @@ int main() {
 	    cout<<"found";
 	else
 	    cout<<"not found";
-	    
+    
+    root = DeleteNode(root,20);
+    Inorder (root);
+    
 	return 0;
 }
